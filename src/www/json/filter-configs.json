@@ -1,0 +1,78 @@
+{
+	"class" : [
+      {
+        "label" : "Bard",
+        "filterArgs" : ["Bard", "yes"]
+      },
+      {
+        "label" : "Cleric",
+        "filterArgs" : ["Cleric", "yes"]
+      },
+      {
+        "label" : "Druid",
+        "filterArgs" : ["Druid", "yes"]
+      },
+      {
+        "label" : "Paladin",
+        "filterArgs" : ["Paladin", "yes"]
+      },
+      {
+        "label" : "Ranger",
+        "filterArgs" : ["Ranger", "yes"]
+      },
+      {
+        "label" : "Sorcerer",
+        "filterArgs" : ["Sorcerer", "yes"]
+      },
+      {
+        "label" : "Warlock",
+        "filterArgs" : ["Warlock", "yes"]
+      },
+      {
+        "label" : "Wizard",
+        "filterArgs" : ["Wizard", "yes"]
+      }
+    ],
+    "level" : [
+      {
+        "label" : "Cantrip",
+        "filterArgs" : ["level", "cantrip"]
+      },
+      {
+        "label" : "1st",
+        "filterArgs" : ["level", "1st"]
+      },
+      {
+        "label" : "2nd",
+        "filterArgs" : ["level", "2nd"]
+      },
+      {
+        "label" : "3rd",
+        "filterArgs" : ["level", "3rd"]
+      },
+      {
+        "label" : "4th",
+        "filterArgs" : ["level", "4th"]
+      },
+      {
+        "label" : "5th",
+        "filterArgs" : ["level", "5th"]
+      },
+      {
+        "label" : "6th",
+        "filterArgs" : ["level", "6th"]
+      },
+      {
+        "label" : "7th",
+        "filterArgs" : ["level", "7th"]
+      },
+      {
+        "label" : "8th",
+        "filterArgs" : ["level", "8th"]
+      },
+      {
+        "label" : "9th",
+        "filterArgs" : ["level", "9th"]
+      }
+    ]
+}
