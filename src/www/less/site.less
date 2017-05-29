@@ -40,8 +40,65 @@ html body {
         display: inline-block;
         margin-right: 8px;
         color: #eeeeee !important;
+    } 
+}
+
+.form-field span {
+    display: none;
+}
+
+.form-field label {
+    width: 100%;
+}
+
+input.form-control {
+    padding: 19px 8px;
+    font-size: 22px;
+}
+
+.show-hide-advanced-filter {
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    top: -4px;
+}
+
+.clear-input {
+    position: relative;
+    color: #666;
+    left: 84%;
+    top: -47px;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    font-size: 26px;
+    cursor: pointer;
+    font-family: verdana;
+    padding: 0;
+    margin: 0;
+    display: block;
+    padding-bottom: 44px;
+    @media screen and (min-width: 321px) {
+        left: 88%;
+    }
+    @media screen and (min-width: 481px) {
+        left: 93%;
+    }
+    @media screen and (min-width: 769px) {
+        left: 95%;
+    }
+    @media screen and (min-width: 993px) {
+        left: 96%;
+    }
+    @media screen and (min-width: 1201) {
+        left: 98%;
     }
 }
+
+.filterByText-wrapper {
+    height: 70px;
+}
+
 
 .card {
     padding: 2px;

@@ -65,25 +65,30 @@ var cardFilter = {};
 
           match : function(criteria, data) {
             data = data || dataArray;
-              var test = function(item) {
-                return utilities.contains(item[criteria[0]].toLowerCase(), criteria[1].toLowerCase());
-              };
+            var test = function(item) {
+              return utilities.contains(item[criteria[0]].toLowerCase(), criteria[1].toLowerCase());
+            };
 
-              return filter(test, data);
+            return filter(test, data);
           },
 
           search : function(criteria, data) {
-            var items = [];
-            var l = criteria[0].length;
-            var i;
+            var inputText = criteria[1].toLowerCase();
+            var searchDescription = criteria[0];
 
-            for (i=0; i<l; i++) {
-              items = items.concat(filter(criteria[0][i], criteria[1], function(item) {
-                return utilities.contains(item[criteria[0][i]].toLowerCase(), criteria[1].toLowerCase());
-              }));
-            }
+            var test = function(item) {
+              var cardName = item['name'].toLowerCase();
+              var cardDescription = item['description'].toLowerCase();
+              var isMatch = utilities.contains(cardName, inputText);
 
-            return utilities.arrayUnique(items);
+              if (searchDescription) {
+                isMatch = isMatch || utilities.contains(cardDescription, inputText);
+              }
+
+              return isMatch;
+            };
+
+            return filter(test, data);
           },     
 
           value : function(criteria, data) {
@@ -110,7 +115,6 @@ var cardFilter = {};
             pub.value = function(criteria, data) {
               data = data || dataArray;
               var test = function(item) {
-                
                 if (item[parent][criteria[0]]) {
                   return item[parent][criteria[0]] === criteria[1].toLowerCase();  
                 }

@@ -33,8 +33,8 @@ export class CardBook extends React.Component {
 
     this.resetState = this.resetState.bind(this);
     this.executeFilters = this.executeFilters.bind(this);
-    this.addCriteriaToFilterGroup = this.addCriteriaToFilterGroup.bind(this);
-    this.removeCriteriaFromFilterGroup = this.removeCriteriaFromFilterGroup.bind(this);
+    this.addFilterToFilterGroup = this.addFilterToFilterGroup.bind(this);
+    this.removeFilterFromFilterGroup = this.removeFilterFromFilterGroup.bind(this);
   }
 
   executeFilters(filters) {
@@ -54,44 +54,46 @@ export class CardBook extends React.Component {
       }
     }
 
-    if (!cards.length) {
-      cards = cardData;
-    }
+    cards = utilities.sortObjectsByProp(cards, "name");
+    cards = utilities.arrayUnique(cards);
 
+    if (!Array.isArray(cards)) {
+      cards = [];
+    }
+  
     this.setState({
-      cards : utilities.arrayUnique(cards),
+      cards : cards,
       filters : this.state.filters
     });
   }
 
-  addCriteriaToFilterGroup(filterName,filter) {
-    var filters = this.state.filters;
-    var targetFilter = filters[filterName] || {};
-    var cards = this.state.cards;
+  addFilterToFilterGroup(filterName,filterObject) {
+    let filters = this.state.filters;
+    filters[filterName] = filters[filterName] || {};
+    filters[filterName].filterArgs = filters[filterName].filterArgs || [];
+    
+    // add the filter args and update the filter function 
+    filters[filterName].filterArgs.push(filterObject.filterArgs);
+    filters[filterName].filterFunc = filterObject.filterFunc;
 
-    if (cards.length === cardData.length) {
-      cards = [];
-    } else {
-      console.log(cards.length);
-      console.log(cardData.length);
+    // TODO: workaround for search filter
+    if (filterName === 'search') {
+
+      filters[filterName].filterArgs = [filterObject.filterArgs];
     }
 
-    targetFilter.filterArgs = targetFilter.filterArgs || [];
-    targetFilter.filterArgs.push(filter.filterArgs);
-    targetFilter.filterFunc = filter.filterFunc;
-    
-    var stateFilters = this.state.filters;
-    stateFilters[filterName] = targetFilter;
-
+    // save 
     this.setState({
       cards : [],
-      filters : stateFilters
+      filters : filters[filterName]
     });
 
+    console.log(this.state.filters);
+    // update
     this.executeFilters(this.state.filters);
   }
 
-  removeCriteriaFromFilterGroup(filterName,filter) {
+  removeFilterFromFilterGroup(filterName,filter) {
     var filterArgsList;
     var removeIndex;
 
@@ -106,6 +108,7 @@ export class CardBook extends React.Component {
       cards : this.state.cards,
       filters : Object.assign({},this.state.filters[filterName], filterArgsList)
     });
+
 
     this.executeFilters(this.state.filters);
   }
@@ -153,6 +156,7 @@ export class CardBook extends React.Component {
 
   /**
    * renders the list of cards
+   * TODO: move cards to its own component
    */
   renderCards() {
     var i = 0;
@@ -229,7 +233,7 @@ export class CardBook extends React.Component {
     }
 
 
-    if (this.state.cards.length === 0) {
+    if (!this.state.cards || this.state.cards.length === 0) {
       cards = <div className="card-container col-xs-12 col-sm-6 col-md-4"><h4 className="no-cards">No cards matching the selected filters</h4></div>
     }
 
@@ -264,18 +268,31 @@ export class CardBook extends React.Component {
    * puts everything in the DOM
    */
 	render() {
-    var filterOptions = config;
+    let i = 0;
+    let j = 0;
 
     return  <div className="container">
               <div className="row">
                 <div className="col-sm-12">
-                  <h2>Cards ({this.state.cards.length})</h2>
-                  <div>{this.props.filters.map((filterRender) => {
-                    return filterRender(this.addCriteriaToFilterGroup, this.removeCriteriaFromFilterGroup);
-                  })}</div>
+                  <h1>Cards ({this.state.cards.length})</h1>
                   
-                  {this.renderCards()}
+                  {this.props.searchFilter(this.addFilterToFilterGroup, this.removeFilterFromFilterGroup)}
+                  <div className="row">
+                    {this.props.filters.map((filterRender) => {
+                      i++;
+                      return <div className="col-xs-12 col-sm-6" key={i-1}>{filterRender(this.addFilterToFilterGroup, this.removeFilterFromFilterGroup)}</div>;
+                    })}
+                  </div>
 
+                  <h2>Advanced Filters<span className="show-hide-advanced-filter"><ShowHideButton target={".advanced-filters"} showText="+" hideText="-" startClosed="true"/></span></h2>
+                  <div className="row height-zero advanced-filters">
+                    {this.props.advancedFilters.map((filterRender) => {
+                      j++;
+                      return <div className="col-xs-12 col-sm-6" key={j-1}>{filterRender(this.addFilterToFilterGroup, this.removeFilterFromFilterGroup)}</div>;
+                    })}
+                  </div>
+                  <div className="row">{this.renderCards()}</div>
+                  
 
                 </div>
               </div>
