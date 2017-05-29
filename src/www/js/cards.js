@@ -2,7 +2,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const utilities = require("../../../node_modules/simple-react-utilities/js/utilities.js");
 
-import cardData from this.props.cardData;
 import Filter from './filter.js';
 import { Card } from './components/card.js';
 import { CardGroup } from './components/card-group.js';
@@ -16,7 +15,7 @@ export class CardBook extends React.Component {
   constructor(props) {
     super(props);
 
-    var sortedCardData = utilities.sortObjectsByProp(cardData, "name");
+    var sortedCardData = utilities.sortObjectsByProp(this.props.cardData, "name");
 
     this.state = {
       cards : sortedCardData,
@@ -31,7 +30,7 @@ export class CardBook extends React.Component {
 
   executeFilters(filters) {
     var _this = this;
-    var cards = cardData;
+    var cards = this.props.cardData;
     let filterArgs;
 
     for (let filter in filters) {
@@ -41,7 +40,7 @@ export class CardBook extends React.Component {
         cards = filters[filter].filterFunc(filterArgs[0], cards); // run once to cut down to this filter
 
         for (let i = 1, l = filterArgs.length; i < l; i++) {
-          cards = cards.concat(filters[filter].filterFunc(filterArgs[i],cardData)); // loop through cards to add back
+          cards = cards.concat(filters[filter].filterFunc(filterArgs[i],this.props.cardData)); // loop through cards to add back
         }  
       }
     }
@@ -107,7 +106,7 @@ export class CardBook extends React.Component {
 
   
   resetState() {
-    var sortedCardData = utilities.sortObjectsByProp(cardData, "name");
+    var sortedCardData = utilities.sortObjectsByProp(this.props.cardData, "name");
 
     this.setState({
       cards : sortedCardData,
