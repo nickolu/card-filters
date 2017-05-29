@@ -2,7 +2,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const utilities = require("../../../node_modules/simple-react-utilities/js/utilities.js");
 
-import cardData from '../json/cards.json';
+import cardData from this.props.cardData;
 import Filter from './filter.js';
 import { Card } from './components/card.js';
 import { CardGroup } from './components/card-group.js';
