@@ -79,9 +79,9 @@ export class CardBook extends React.Component {
       filters : filters[filterName]
     });
 
-    console.log(this.state.filters);
     // update
     this.executeFilters(this.state.filters);
+    this.updateHeight();
   }
 
   removeFilterFromFilterGroup(filterName,filter) {
@@ -102,6 +102,7 @@ export class CardBook extends React.Component {
 
 
     this.executeFilters(this.state.filters);
+    this.updateHeight();
   }
 
   
@@ -114,14 +115,32 @@ export class CardBook extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.updateHeight();
+  }
+
+  updateHeight() {
+    if (document.querySelector('.card-container')) {
+      document.querySelector('.card-container').style.height = 'auto';
+      let currentHeight = document.querySelector('.card-container').offsetHeight;
+      let newHeight = Math.ceil(currentHeight/3) + 800;
+      document.querySelector('.card-container').style.height = newHeight+'px';
+      
+      console.log(currentHeight);
+      console.log(newHeight);
+      
+    }
+  }
 
   /**
    * puts everything in the DOM
    */
-	render() {
+  render() {
     let i = 0;
     let j = 0;
 
+    
+    
     return  <div className="container">
               <div className="row">
                 <div className="col-sm-12">
@@ -147,6 +166,6 @@ export class CardBook extends React.Component {
                   </div>
                 </div>
               </div>
-      		  </div>;
-	}
+            </div>;
+  }
 }
