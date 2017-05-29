@@ -198,10 +198,11 @@ class SomeCards extends React.Component {
 	render() {
     return  <div className="container">
               <CardBook 
+                cardData={cardData}
                 searchFilter={this.searchFilter}
                 filters={[this.classFilters, this.levelFilters]}
                 advancedFilters={[this.componentsFilters,  this.optionsFilters, this.sourceFilters, this.castingTimeFilters, this.rangeFilters ]}
-                />
+              />
       		  </div>;
 	}
 }
