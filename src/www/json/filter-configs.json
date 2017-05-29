@@ -194,23 +194,99 @@
       "label": "GP",
       "filterArgs": ["components", "GP"]
     }
-],
+  ],
   "duration": [
     {
-      "label": "",
-      "filterArgs": []
-    }
-  ],
-  "options": [
+      "label" :"Instantaneous",
+      "filterArgs" : ["duration","Instantaneous"]
+    },
     {
-      "label": "",
-      "filterArgs": []
+      "label" :"1 round",
+      "filterArgs" : ["duration","1 round"]
+    },
+    {
+      "label" :"6 rounds",
+      "filterArgs" : ["duration","6 rounds"]
+    },
+    {
+      "label" :"1 minute",
+      "filterArgs" : ["duration","1 minute"]
+    },
+    {
+      "label" :"10 minutes",
+      "filterArgs" : ["duration","10 minutes"]
+    },
+    {
+      "label" :"1 hour",
+      "filterArgs" : ["duration","1 hour"]
+    },
+    {
+      "label" :"8 hours",
+      "filterArgs" : ["duration","8 hours"]
+    },
+    {
+      "label" :"24 hours",
+      "filterArgs" : ["duration","24 hours"]
+    },
+    {
+      "label" :"7 days",
+      "filterArgs" : ["duration","7 days"]
+    },
+    {
+      "label" : "30 days",
+      "filterArgs" : ["duration","30 days"]
     }
   ],
   "school": [
     {
-      "label": "",
-      "filterArgs": []
+      "label" : "Conjuration",
+      "filterArgs" : ["school","Conjuration"]
+    },
+    {
+      "label" : "Divination",
+      "filterArgs" : ["school","Divination"]
+    },
+    {
+      "label" : "Enchantment",
+      "filterArgs" : ["school","Enchantment"]
+    },
+    {
+      "label" : "Evocation",
+      "filterArgs" : ["school","Evocation"]
+    },
+    {
+      "label" : "Illusion",
+      "filterArgs" : ["school","Illusion"]
+    },
+    {
+      "label" : "Necromancy",
+      "filterArgs" : ["school","Necromancy"]
+    },
+    {
+      "label" : "Transmutation",
+      "filterArgs" : ["school","Transmutation"]
+    }
+  ],
+  "options": [
+    {
+      "label": "Concentration",
+      "filterArgs": ["concentration", "yes"]
+    },
+    {
+      "label": "Not Concentration",
+      "filterArgs": ["concentration", "no"]
+    },
+    {
+      "label": "Ritual",
+      "filterArgs": ["ritual", "yes"]
+    },
+    {
+      "label": "Not Ritual",
+      "filterArgs": ["ritual", "no"]
+    },
+    {
+      "label": "At Higher Levels",
+      "filterArgs": ["description", "at higher level"]
     }
   ]
 }

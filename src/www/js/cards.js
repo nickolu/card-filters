@@ -1,20 +1,12 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var utilities = require("../../../node_modules/simple-react-utilities/js/utilities.js");
+const React = require('react');
+const ReactDOM = require('react-dom');
+const utilities = require("../../../node_modules/simple-react-utilities/js/utilities.js");
 
-import config from '../json/config.json';
 import cardData from '../json/cards.json';
-import filterOptions from '../json/filter-configs.json';
 import Filter from './filter.js';
-import { ShowHideButton } from './components/show-hide-button.js';
-import { SearchFilter } from './components/search-filter.js';
-import { CardSizeButton } from './components/card-size-button.js';
 import { Card } from './components/card.js';
-import { FilterButton } from './components/filter-button.js';
-import { FilterButtonGroup } from './components/filter-button-group.js';
-import { FilterSet } from './components/filter-set.js';
-import { SubmitButton } from '../../../node_modules/simple-react-forms/form-fields/submit-button.js';
-
+import { CardGroup } from './components/card-group.js';
+import { ShowHideButton } from './components/show-hide-button.js';
 
 export class CardBook extends React.Component {
   /**
@@ -122,147 +114,7 @@ export class CardBook extends React.Component {
       filters : []
     });
   }
-  
 
-  /**
-   * this should be moved to the utilities project
-   */
-  getQueryVariable(variable) {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
-  }
-
-  /**
-   * produces a filter with the search query string
-   */
-  getFiltersFromQueryString() {
-    var filter = {};
-
-    filter = {
-      key:"name",
-      type:"search",
-      usePartialMatch:true,
-      value:decodeURIComponent(this.getQueryVariable('search'))
-    }
-
-    return filter;
-  }
-
-
-  /**
-   * renders the list of cards
-   * TODO: move cards to its own component
-   */
-  renderCards() {
-    var i = 0;
-    var cardsArr = this.state.cards || [];
-    var cards = <div className="row card-container">{cardsArr.map(card => <div className="card card-inner col-xs-12 col-sm-6 col-md-4" key={card.name}><Card settings={{
-                        name : card.name,
-                        description : card.description,
-                        col1Props : [
-                          {
-                            cssClass : 'card_level',
-                            label : 'Level',
-                            value : card.level 
-                          },
-                          {
-                            cssClass : 'card_casting_time',
-                            label : 'Casting Time',
-                            value : card.casting_time 
-                          },
-                          {
-                            cssClass : 'card_duration',
-                            label : 'Duration',
-                            value : card.duration 
-                          },
-                          {
-                            cssClass : 'card_range',
-                            label : 'Range',
-                            value : card.range 
-                          },
-                          {
-                            cssClass : 'card_components',
-                            label : 'Components',
-                            value : card.components 
-                          }
-                        ],
-                        col2Props : [
-                          {
-                            cssClass : 'card_concentration',
-                            label : 'Concentration',
-                            value : card.concentration 
-                          },
-                          {
-                            cssClass : 'card_ritual',
-                            label : 'Ritual',
-                            value : card.ritual 
-                          },
-                          {
-                            cssClass : 'card_page',
-                            label : 'Page',
-                            value : card.page 
-                          },
-                          {
-                            cssClass : 'card_school',
-                            label : 'School',
-                            value : card.school 
-                          },
-                          {
-                            cssClass : 'card_class',
-                            label : 'Class',
-                            value : getClassNames(card) 
-                          }
-                        ]
-                     }} /></div>)}
-              </div>;
-    
-    function getClassNames(cardObj) {
-      var classes = cardObj.class;
-      var classArray = [];
-
-      for (var obj in classes) {
-        classArray.push(obj);
-      }
-
-      return classArray.join(", ");
-    }
-
-
-    if (!this.state.cards || this.state.cards.length === 0) {
-      cards = <div className="card-container col-xs-12 col-sm-6 col-md-4"><h4 className="no-cards">No cards matching the selected filters</h4></div>
-    }
-
-    return cards;
-  }
-
-
-  componentDidMount () {
-    var _this = this;
-    //window.getFilteredCards = this.getFilteredCards;
-
-    function updatefromQuery() {
-      var sortedCardData = utilities.sortObjectsByProp(cardData, "name");
-
-      this.state = {
-        cards : sortedCardData,
-        sortCards : "name",
-        descriptionSearch : false,
-        filter : [this.getFiltersFromQueryString()]
-      };
-      this.setExclusiveFilters();
-      this.setInclusiveFilters();
-    }
-    
-
-    if (this.getQueryVariable('search')) {
-      this.forceUpdate(updatefromQuery);  
-    }
-  }
 
   /**
    * puts everything in the DOM
@@ -288,12 +140,12 @@ export class CardBook extends React.Component {
                   <div className="row height-zero advanced-filters">
                     {this.props.advancedFilters.map((filterRender) => {
                       j++;
-                      return <div className="col-xs-12 col-sm-6" key={j-1}>{filterRender(this.addFilterToFilterGroup, this.removeFilterFromFilterGroup)}</div>;
+                      return <div className="col-xs-12 col-sm-4 col- filter-group filters-advanced" key={j-1}>{filterRender(this.addFilterToFilterGroup, this.removeFilterFromFilterGroup)}</div>;
                     })}
                   </div>
-                  <div className="row">{this.renderCards()}</div>
-                  
-
+                  <div className="row">
+                    <CardGroup cards={this.state.cards} />
+                  </div>
                 </div>
               </div>
       		  </div>;

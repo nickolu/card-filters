@@ -33,7 +33,7 @@ export class FilterButtonGroup extends React.Component {
     }
     
 
-    return  <div>
+    return  <div className="filter-button-group">
               {buttons()}
             </div>
   }

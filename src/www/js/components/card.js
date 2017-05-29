@@ -18,7 +18,8 @@ export class Card extends React.Component {
     const cardId = this.props.settings.name
                       .toLowerCase()
                       .replace(/\s/g,'-')
-                      .replace(/'/g,'');
+                      .replace(/'/g,'')
+                      .replace(/\//g,'-');
                       
     return  <div className={cardId}>
               <h2 className="card_name">{this.props.settings.name}</h2>

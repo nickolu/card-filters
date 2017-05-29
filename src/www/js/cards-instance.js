@@ -7,6 +7,7 @@ import filterOptions from '../json/filter-configs.json';
 import Filter from './filter.js';
 import { CardBook } from './cards.js'
 import { FilterButtonGroup } from './components/filter-button-group.js';
+import { FilterButton } from './components/filter-button.js';
 import { TextInput } from '../../../node_modules/simple-react-forms/form-fields/text-input.js';
 
 class SomeCards extends React.Component {
@@ -139,6 +140,57 @@ class SomeCards extends React.Component {
               <FilterButtonGroup cardData={cardData} buttonOptions={buttonOptions} filters={filterOptions.components} />
             </div>
   }
+
+  durationFilters(activate,deactivate) {
+    var filter = new Filter(cardData);
+    var buttonOptions = {
+      filterName : "duration",
+      filterFunc : filter.by.value, 
+      onActivate : activate, 
+      onDeactivate : deactivate
+    }
+
+    return  <div>
+              <h4>Components</h4>
+              <FilterButtonGroup cardData={cardData} buttonOptions={buttonOptions} filters={filterOptions.duration} />
+            </div>
+  }
+
+  schoolsFilters(activate,deactivate) {
+    var filter = new Filter(cardData);
+    var buttonOptions = {
+      filterName : "school",
+      filterFunc : filter.by.value, 
+      onActivate : activate, 
+      onDeactivate : deactivate
+    }
+
+    return  <div>
+              <h4>Components</h4>
+              <FilterButtonGroup cardData={cardData} buttonOptions={buttonOptions} filters={filterOptions.school} />
+            </div>
+  }
+
+  optionsFilters(activate,deactivate) {
+    var filter = new Filter(cardData);
+    var buttonOptions = {
+      filterName : "school",
+      filterFunc : filter.by.match, 
+      onActivate : activate, 
+      onDeactivate : deactivate
+    }
+
+    return  <div>
+              <h4>Options</h4>
+              {filterOptions.options.map((option) => {
+                return <FilterButton
+                label={option.label}
+                filterArgs={option.filterArgs}
+                buttonOptions={buttonOptions}
+              />
+              })}
+            </div>
+  }
   
   /**
    * puts everything in the DOM
@@ -148,7 +200,7 @@ class SomeCards extends React.Component {
               <CardBook 
                 searchFilter={this.searchFilter}
                 filters={[this.classFilters, this.levelFilters]}
-                advancedFilters={[this.componentsFilters, this.sourceFilters, this.castingTimeFilters, this.rangeFilters ]}
+                advancedFilters={[this.componentsFilters,  this.optionsFilters, this.sourceFilters, this.castingTimeFilters, this.rangeFilters ]}
                 />
       		  </div>;
 	}
