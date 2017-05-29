@@ -1,19 +1,19 @@
 {
-  "name": "spell-book",
+  "name": "card-filters",
   "version": "1.0.0",
   "description": "View and filter spell objects",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nickolusroy/spell-book.git"
+    "url": "git+https://github.com/nickolusroy/card-filters.git"
   },
   "keywords": [],
   "author": "Nick Cunningham",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nickolusroy/spell-book/issues"
+    "url": "https://github.com/nickolusroy/card-filters/issues"
   },
-  "homepage": "https://github.com/nickolusroy/spell-book#readme",
+  "homepage": "https://github.com/nickolusroy/card-filters#readme",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.2",
     "es6-promise": "^3.1.2",
