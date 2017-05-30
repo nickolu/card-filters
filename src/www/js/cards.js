@@ -146,10 +146,6 @@ export class CardBook extends React.Component {
 
     let newHeight = Math.ceil(currentHeight/denominator) + 350;
     cardContainer.style.height = newHeight+'px';
-
-    console.log(window.innerWidth);
-    console.log(currentHeight);
-    console.log(newHeight);
   }
 
   /**
