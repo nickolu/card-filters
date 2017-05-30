@@ -176,7 +176,7 @@ export class CardBook extends React.Component {
                     })}
                   </div>
                   <div className="row">
-                    <CardGroup cards={this.state.cards} />
+                    {this.props.renderCards(this.state.cards)}
                   </div>
                 </div>
               </div>
