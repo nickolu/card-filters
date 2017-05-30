@@ -129,7 +129,7 @@ export class CardBook extends React.Component {
     let cardContainer = document.querySelector('.card-container');
     cardContainer.style.height = 'auto';
     let currentHeight = cardContainer.offsetHeight;
-    let newHeight = Math.ceil(currentHeight/3) + 800;
+    let newHeight = Math.ceil(currentHeight/3) + 350;
     cardContainer.style.height = newHeight+'px';
 
     console.log(currentHeight);
@@ -146,13 +146,13 @@ export class CardBook extends React.Component {
     return  <div className="container">
               <div className="row">
                 <div className="col-sm-12">
-                  <h1>Cards ({this.state.cards.length})</h1>
+                  <h1>{this.props.label} ({this.state.cards.length})</h1>
                   
                   {this.props.searchFilter(this.startFilteringBy, this.stopFilteringBy)}
                   <div className="row">
                     {this.props.filters.map((renderFilterButtons) => {
                       i++;
-                      return <div className="col-xs-12 col-sm-6" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+                      return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
 
@@ -160,7 +160,7 @@ export class CardBook extends React.Component {
                   <div className="row height-zero advanced-filters">
                     {this.props.advancedFilters.map((renderFilterButtons) => {
                       j++;
-                      return <div className="col-xs-12 col-sm-4 col- filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+                      return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
                   <div className="row">
