@@ -119,11 +119,12 @@ export class CardBook extends React.Component {
 
   componentDidMount() {
     let timeout;
+    let _this = this;
     this.updateHeight();
     
     function throttled() {
       clearTimeout(timeout);
-      timeout = setTimeout(this.updateHeight, 0);
+      timeout = setTimeout(_this.updateHeight, 0);
     }
 
     window.addEventListener("resize", throttled);
@@ -139,13 +140,14 @@ export class CardBook extends React.Component {
     let currentHeight = cardContainer.offsetHeight;
     let denominator = 3;
 
-    if (window.innerWidth < 920) {
+    if (window.innerWidth < 992) {
       denominator = 2;
     } 
 
     let newHeight = Math.ceil(currentHeight/denominator) + 350;
     cardContainer.style.height = newHeight+'px';
 
+    console.log(window.innerWidth);
     console.log(currentHeight);
     console.log(newHeight);
   }
