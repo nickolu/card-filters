@@ -83,7 +83,7 @@ export class CardBook extends React.Component {
       filters : this.state.filters
     });
   }
-  
+
   startFilteringBy(filterName,filterObject) {
     let filters = this.state.filters;
     filters[filterName] = filters[filterName] || {};
@@ -164,14 +164,17 @@ export class CardBook extends React.Component {
     let cardContainer = document.querySelector('.card-container');
     cardContainer.style.height = 'auto';
     let currentHeight = cardContainer.offsetHeight;
-    let denominator = 3;
+    let columns = 3;
+    let windowWidth = window.innerWidth;
 
-    if (window.innerWidth < 992) {
-      denominator = 2;
-    } 
+    if (windowWidth >= 768) {
+      if (windowWidth < 992) {
+        columns = 2;
+      }   
 
-    let newHeight = Math.ceil(currentHeight/denominator) + 350;
-    cardContainer.style.height = newHeight+'px';
+      let newHeight = Math.ceil(currentHeight/columns) + 350;
+      cardContainer.style.height = newHeight+'px';
+    }    
   }
 
   /**
@@ -201,9 +204,7 @@ export class CardBook extends React.Component {
                       return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
-                  <div className="row">
-                    {this.props.renderCards(this.state.cards)}
-                  </div>
+                  {this.props.renderCards(this.state.cards)}
                 </div>
               </div>
             </div>;
