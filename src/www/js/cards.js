@@ -28,10 +28,34 @@ export class CardBook extends React.Component {
     this.stopFilteringBy = this.stopFilteringBy.bind(this);
   }
 
+  /**
+   * loops through filters and reduces data to just the matching cards
+   * @param  {array} filters
+   *
+      filters = {
+        "class" : {
+          "filterArgs" : [
+            {"Bard" : "yes"},
+            {"Cleric" : "yes"},
+          ],
+          "filterFunc" : filter.by.value
+        },
+        "level" : {
+          "filterArgs" : [
+            {"Level" : "1st"},
+            {"Level" : "2nd"}
+          ],
+          "filterFunc" : filter.by.value
+        }
+      }
+   */
   executeFilters(filters) {
     var _this = this;
     var cards = this.props.cardData;
+    var allCards = cards;
     let filterArgs;
+
+    console.log(filters);
 
     for (let filter in filters) {
       filterArgs = filters[filter].filterArgs;
@@ -40,9 +64,11 @@ export class CardBook extends React.Component {
         cards = filters[filter].filterFunc(filterArgs[0], cards); // run once to cut down to this filter
 
         for (let i = 1, l = filterArgs.length; i < l; i++) {
-          cards = cards.concat(filters[filter].filterFunc(filterArgs[i],this.props.cardData)); // loop through cards to add back
-        }  
+          cards = cards.concat(filters[filter].filterFunc(filterArgs[i],allCards)); // loop through cards to add back
+        }
       }
+
+      allCards = cards;
     }
 
     cards = utilities.sortObjectsByProp(cards, "name");
@@ -57,7 +83,7 @@ export class CardBook extends React.Component {
       filters : this.state.filters
     });
   }
-
+  
   startFilteringBy(filterName,filterObject) {
     let filters = this.state.filters;
     filters[filterName] = filters[filterName] || {};
