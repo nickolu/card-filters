@@ -15,10 +15,8 @@ export class CardBook extends React.Component {
   constructor(props) {
     super(props);
 
-    var sortedCardData = utilities.sortObjectsByProp(this.props.cardData, "name");
-
     this.state = {
-      cards : sortedCardData,
+      cards : this.props.startData,
       filters : []
     };
 
@@ -115,18 +113,22 @@ export class CardBook extends React.Component {
 
     filters[filterName] = filters[filterName] || {};
     filters[filterName].filterArgs = filters[filterName].filterArgs || [];
-    
+
     // remove the filter args 
     filters[filterName].filterArgs.forEach((filterArg) => {
-      if (filterArg === filterObject.filterArgs) {
+      if (filterArg === filterObject.filterArgs || 
+        filterArg[0] === filterObject.filterArgs[0] && 
+        filterArg[1] === filterObject.filterArgs[1]) {
+        
         filters[filterName].filterArgs.splice(i, 1);
       }
+
       i++;
     });
     
     // save 
     this.setState(Object.assign({}, this.state, {
-      filters : filters[filterName]
+      filters : filters
     }));
 
     // update
@@ -190,6 +192,7 @@ export class CardBook extends React.Component {
                   <h1>{this.props.label} ({this.state.cards.length})</h1>
                   
                   {this.props.searchFilter(this.startFilteringBy, this.stopFilteringBy)}
+                  {this.props.navigation(this.startFilteringBy, this.stopFilteringBy)}
                   <div className="row">
                     {this.props.filters.map((renderFilterButtons) => {
                       i++;

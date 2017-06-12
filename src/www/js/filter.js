@@ -77,9 +77,13 @@ var cardFilter = {};
             var searchDescription = criteria[0];
 
             var test = function(item) {
-              var cardName = item['name'].toLowerCase();
-              var cardDescription = item['description'].toLowerCase();
-              var isMatch = utilities.contains(cardName, inputText);
+              var cardName = item['name'] || "";
+              var cardDescription = item['description'] || "";
+              var isMatch = false;
+
+              cardName = cardName.toLowerCase();
+              cardDescription = cardDescription.toLowerCase();
+              isMatch = utilities.contains(cardName, inputText);
 
               if (searchDescription) {
                 isMatch = isMatch || utilities.contains(cardDescription, inputText);
