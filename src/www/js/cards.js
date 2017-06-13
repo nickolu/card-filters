@@ -18,7 +18,7 @@ export class CardBook extends React.Component {
     const startData = this.props.startData || this.props.cardData;
 
     this.state = {
-      cards : this.props.startData,
+      cards : startData,
       filters : []
     };
 
