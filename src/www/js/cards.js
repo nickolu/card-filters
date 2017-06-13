@@ -15,6 +15,8 @@ export class CardBook extends React.Component {
   constructor(props) {
     super(props);
 
+    const startData = this.props.startData || this.props.cardData;
+
     this.state = {
       cards : this.props.startData,
       filters : []
@@ -196,7 +198,7 @@ export class CardBook extends React.Component {
                   <div className="row">
                     {this.props.filters.map((renderFilterButtons) => {
                       i++;
-                      return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+                      return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
 
@@ -204,7 +206,7 @@ export class CardBook extends React.Component {
                   <div className="row height-zero advanced-filters">
                     {this.props.advancedFilters.map((renderFilterButtons) => {
                       j++;
-                      return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+                      return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
                   {this.props.renderCards(this.state.cards)}
