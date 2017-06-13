@@ -15,10 +15,10 @@ export class CardBook extends React.Component {
   constructor(props) {
     super(props);
 
-    var sortedCardData = utilities.sortObjectsByProp(this.props.cardData, "name");
+    const startData = this.props.startData || this.props.cardData;
 
     this.state = {
-      cards : sortedCardData,
+      cards : startData,
       filters : []
     };
 
@@ -55,8 +55,7 @@ export class CardBook extends React.Component {
     var allCards = cards;
     let filterArgs;
 
-    console.log(filters);
-
+    
     for (let filter in filters) {
       filterArgs = filters[filter].filterArgs;
       
@@ -115,18 +114,22 @@ export class CardBook extends React.Component {
 
     filters[filterName] = filters[filterName] || {};
     filters[filterName].filterArgs = filters[filterName].filterArgs || [];
-    
+
     // remove the filter args 
     filters[filterName].filterArgs.forEach((filterArg) => {
-      if (filterArg === filterObject.filterArgs) {
+      if (filterArg === filterObject.filterArgs || 
+        filterArg[0] === filterObject.filterArgs[0] && 
+        filterArg[1] === filterObject.filterArgs[1]) {
+        
         filters[filterName].filterArgs.splice(i, 1);
       }
+
       i++;
     });
     
     // save 
     this.setState(Object.assign({}, this.state, {
-      filters : filters[filterName]
+      filters : filters
     }));
 
     // update
@@ -143,40 +146,6 @@ export class CardBook extends React.Component {
     });
   }
 
-  componentDidMount() {
-    let timeout;
-    let _this = this;
-    this.updateHeight();
-    
-    function throttled() {
-      clearTimeout(timeout);
-      timeout = setTimeout(_this.updateHeight, 0);
-    }
-
-    window.addEventListener("resize", throttled);
-  }
-
-  componentDidUpdate() {
-    this.updateHeight();
-  }
-
-  updateHeight() {
-    let cardContainer = document.querySelector('.card-container');
-    cardContainer.style.height = 'auto';
-    let currentHeight = cardContainer.offsetHeight;
-    let columns = 3;
-    let windowWidth = window.innerWidth;
-
-    if (windowWidth >= 768) {
-      if (windowWidth < 992) {
-        columns = 2;
-      }   
-
-      let newHeight = Math.ceil(currentHeight/columns) + 350;
-      cardContainer.style.height = newHeight+'px';
-    }    
-  }
-
   /**
    * puts everything in the DOM
    */
@@ -190,10 +159,11 @@ export class CardBook extends React.Component {
                   <h1>{this.props.label} ({this.state.cards.length})</h1>
                   
                   {this.props.searchFilter(this.startFilteringBy, this.stopFilteringBy)}
+                  {this.props.navigation(this.startFilteringBy, this.stopFilteringBy)}
                   <div className="row">
                     {this.props.filters.map((renderFilterButtons) => {
                       i++;
-                      return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+                      return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
 
@@ -201,7 +171,7 @@ export class CardBook extends React.Component {
                   <div className="row height-zero advanced-filters">
                     {this.props.advancedFilters.map((renderFilterButtons) => {
                       j++;
-                      return <div className="col-xs-12 col-sm-4 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+                      return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
                   {this.props.renderCards(this.state.cards)}
