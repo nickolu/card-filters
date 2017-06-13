@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 import Filter from '../filter.js';
-var utilities = require("../../../../node_modules/simple-react-utilities/js/utilities.js");
+var utilities = require(__dirname+"/node_modules/simple-react-utilities/js/utilities.js");
 
 import { ButtonGroup } from '../../../../node_modules/simple-react-forms/form-fields/button-group.js';
 import { FilterButton } from './filter-button.js';
