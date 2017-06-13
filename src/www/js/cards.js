@@ -55,8 +55,7 @@ export class CardBook extends React.Component {
     var allCards = cards;
     let filterArgs;
 
-    console.log(filters);
-
+    
     for (let filter in filters) {
       filterArgs = filters[filter].filterArgs;
       
@@ -145,40 +144,6 @@ export class CardBook extends React.Component {
       cards : sortedCardData,
       filters : []
     });
-  }
-
-  componentDidMount() {
-    let timeout;
-    let _this = this;
-    this.updateHeight();
-    
-    function throttled() {
-      clearTimeout(timeout);
-      timeout = setTimeout(_this.updateHeight, 0);
-    }
-
-    window.addEventListener("resize", throttled);
-  }
-
-  componentDidUpdate() {
-    this.updateHeight();
-  }
-
-  updateHeight() {
-    let cardContainer = document.querySelector('.card-container');
-    cardContainer.style.height = 'auto';
-    let currentHeight = cardContainer.offsetHeight;
-    let columns = 3;
-    let windowWidth = window.innerWidth;
-
-    if (windowWidth >= 768) {
-      if (windowWidth < 992) {
-        columns = 2;
-      }   
-
-      let newHeight = Math.ceil(currentHeight/columns) + 350;
-      cardContainer.style.height = newHeight+'px';
-    }    
   }
 
   /**
