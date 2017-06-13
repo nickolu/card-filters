@@ -1,4 +1,4 @@
-var utilities = require("../../../node_modules/simple-react-utilities/js/utilities.js");
+var utilities = require(__dirname+"/node_modules/simple-react-utilities/js/utilities.js");
 var cardFilter = {};
 
 (function(){

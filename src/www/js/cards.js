@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const utilities = require("../../../node_modules/simple-react-utilities/js/utilities.js");
+const utilities = require(__dirname+"/node_modules/simple-react-utilities/js/utilities.js");
 
 import Filter from './filter.js';
 import { Card } from './components/card.js';
