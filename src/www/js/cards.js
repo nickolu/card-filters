@@ -19,6 +19,7 @@ export class CardBook extends React.Component {
 
     this.state = {
       cards : startData,
+      savedCards : [],
       filters : []
     };
 
@@ -146,6 +147,21 @@ export class CardBook extends React.Component {
     });
   }
 
+  saveCard(card) {
+    let savedCards = this.state.savedCards;
+    savedCards.push(card);
+
+    this.setState(Object.assign({}, this.state, {
+      savedCards : savedCards,
+    }));
+  }
+
+  clearSavedCards() {
+    this.setState(Object.assign({}, this.state, {
+      savedCards : [],
+    }));
+  }
+
   /**
    * puts everything in the DOM
    */
@@ -159,8 +175,9 @@ export class CardBook extends React.Component {
                   <h1>{this.props.label} ({this.state.cards.length})</h1>
                   
                   {this.props.searchFilter(this.startFilteringBy, this.stopFilteringBy)}
-                  {this.props.navigation(this.startFilteringBy, this.stopFilteringBy)}
-                  <div className="row">
+                  
+                  <div className="row basic-filters"><ShowHideButton target={".basic-filters"} showText="+" hideText="-" startClosed="true"/>
+                    {this.props.navigation(this.startFilteringBy, this.stopFilteringBy)}
                     {this.props.filters.map((renderFilterButtons) => {
                       i++;
                       return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
