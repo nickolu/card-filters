@@ -1,3 +1,6 @@
 src/www/json/spells.json
 dist
-node_modules
+.npmignore
+node_modules/*
+!node_modules/simple-react-forms
+node_modules/simple-react-forms/node_modules
