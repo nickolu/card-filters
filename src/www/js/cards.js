@@ -20,7 +20,7 @@ export class CardBook extends React.Component {
     this.state = this.props.state || {
       cards : startData,
       savedCards : [],
-      filters : []
+      filters : this.props.startFilter
     };
 
     this.resetState = this.resetState.bind(this);
@@ -28,6 +28,8 @@ export class CardBook extends React.Component {
     this.startFilteringBy = this.startFilteringBy.bind(this);
     this.stopFilteringBy = this.stopFilteringBy.bind(this);
     this.saveCard = this.saveCard.bind(this);
+
+    console.log(this.state.filters);
   }
 
   /**
@@ -56,6 +58,8 @@ export class CardBook extends React.Component {
     var cards = this.props.cardData;
     var allCards = cards;
     let filterArgs;
+
+    console.log(this.state.filters);
 
     
     for (let filter in filters) {
@@ -195,10 +199,16 @@ export class CardBook extends React.Component {
                     })}
                   </div>
 
-                  <h2>Saved Cards<span className="show-hide-advanced-filter"><ShowHideButton target={".card-container"} showText="+" hideText="-" startClosed="false"/></span></h2>
-                  {this.props.renderCards(this.state.savedCards, this.saveCard)}
-                  <h2>Search Results<span className="show-hide-advanced-filter"><ShowHideButton target={".card-container"} showText="+" hideText="-" startClosed="false"/></span></h2>
-                  {this.props.renderCards(this.state.cards, this.saveCard)}
+                  <h2>Saved Cards<span className="show-hide-advanced-filter"><ShowHideButton target={".saved-cards"} showText="+" hideText="-" startClosed="false"/></span></h2>
+                  <div className="saved-cards">
+                    {this.props.renderCards(this.state.savedCards, this.saveCard)}
+                  </div>
+                  
+                  <h2>Search Results<span className="show-hide-advanced-filter"><ShowHideButton target={".filtered-cards"} showText="+" hideText="-" startClosed="false"/></span></h2>
+                  <div className="filtered-cards">
+                    {this.props.renderCards(this.state.cards, this.saveCard)}
+                  </div>
+                  
                 </div>
               </div>
             </div>;
