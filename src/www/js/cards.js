@@ -17,7 +17,7 @@ export class CardBook extends React.Component {
 
     const startData = this.props.startData || this.props.cardData;
 
-    this.state = {
+    this.state = this.props.state || {
       cards : startData,
       savedCards : [],
       filters : []
@@ -27,6 +27,7 @@ export class CardBook extends React.Component {
     this.executeFilters = this.executeFilters.bind(this);
     this.startFilteringBy = this.startFilteringBy.bind(this);
     this.stopFilteringBy = this.stopFilteringBy.bind(this);
+    this.saveCard = this.saveCard.bind(this);
   }
 
   /**
@@ -162,6 +163,8 @@ export class CardBook extends React.Component {
     }));
   }
 
+
+
   /**
    * puts everything in the DOM
    */
@@ -175,8 +178,8 @@ export class CardBook extends React.Component {
                   <h1>{this.props.label} ({this.state.cards.length})</h1>
                   
                   {this.props.searchFilter(this.startFilteringBy, this.stopFilteringBy)}
-                  
-                  <div className="row basic-filters"><ShowHideButton target={".basic-filters"} showText="+" hideText="-" startClosed="true"/>
+                  <h2>Filters<span className="show-hide-advanced-filter"><ShowHideButton target={".basic-filters"} showText="+" hideText="-" startClosed="falses"/></span></h2>
+                  <div className="row basic-filters">
                     {this.props.navigation(this.startFilteringBy, this.stopFilteringBy)}
                     {this.props.filters.map((renderFilterButtons) => {
                       i++;
@@ -191,7 +194,11 @@ export class CardBook extends React.Component {
                       return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
                   </div>
-                  {this.props.renderCards(this.state.cards)}
+
+                  <h2>Saved Cards<span className="show-hide-advanced-filter"><ShowHideButton target={".card-container"} showText="+" hideText="-" startClosed="false"/></span></h2>
+                  {this.props.renderCards(this.state.savedCards, this.saveCard)}
+                  <h2>Search Results<span className="show-hide-advanced-filter"><ShowHideButton target={".card-container"} showText="+" hideText="-" startClosed="false"/></span></h2>
+                  {this.props.renderCards(this.state.cards, this.saveCard)}
                 </div>
               </div>
             </div>;
