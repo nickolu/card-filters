@@ -208,7 +208,7 @@ export class CardBook extends React.Component {
                     })}
                   </div>                  
 
-                  <h2>Saved Cards ({savedCardsLength()})<span className="show-hide-advanced-filter"><ShowHideButton target={".saved-cards"} showText="+" hideText="-" startClosed="true"/></span></h2>
+                  <h2>Saved {this.props.label} ({savedCardsLength()})<span className="show-hide-advanced-filter"><ShowHideButton target={".saved-cards"} showText="+" hideText="-" startClosed="true"/></span></h2>
                   <div className="height-zero saved-cards">
                     {this.props.renderCards(this.state.savedCards, this.saveCard)}
                   </div>
