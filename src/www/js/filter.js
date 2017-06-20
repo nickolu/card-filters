@@ -66,7 +66,7 @@ var cardFilter = {};
           match : function(criteria, data) {
             data = data || dataArray;
             var test = function(item) {
-              return utilities.contains(item[criteria[0]].toLowerCase(), criteria[1].toLowerCase());
+              return !!(item[criteria[0]]) && utilities.contains(item[criteria[0]].toLowerCase(), criteria[1].toLowerCase());
             };
 
             return filter(test, data);
