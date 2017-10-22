@@ -21,8 +21,8 @@ export class Card extends React.Component {
                       .replace(/'/g,'')
                       .replace(/\//g,'-');
                       
-    return  <div className={cardId}>
-              <h2 className="card_name">{this.props.settings.name}</h2><div className="btn" onClick={this.props.saveCardFunc}>Save</div>
+    return  <div key={cardId} className={cardId}>
+              <h2 className="card_name">{this.props.settings.name}</h2><div className="save-btn btn" data-card-name={this.props.settings.name} onClick={this.props.saveCardFunc}>Save</div>
               <span className="open-button"><ShowHideButton target={"."+cardId+" .card-content"} showText="+" hideText="-" /></span>
               <span className="closed-button"><ShowHideButton target={"."+cardId+" .card-content"} showText="+" hideText="-" startClosed="true"/></span>
               <div className={"row card-content " + "card"}>
@@ -39,6 +39,3 @@ export class Card extends React.Component {
               
   }
 }
-
-
-
