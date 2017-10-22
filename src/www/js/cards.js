@@ -23,6 +23,8 @@ export class CardBook extends React.Component {
       filters : this.props.startFilter
     };
 
+    console.log(this.props.startFilter);
+
     this.resetState = this.resetState.bind(this);
     this.executeFilters = this.executeFilters.bind(this);
     this.startFilteringBy = this.startFilteringBy.bind(this);
@@ -86,6 +88,9 @@ export class CardBook extends React.Component {
 
   startFilteringBy(filterName,filterObject) {
     let filters = this.state.filters;
+
+    console.log(this.state);
+
     filters[filterName] = filters[filterName] || {};
     filters[filterName].filterArgs = filters[filterName].filterArgs || [];
     
@@ -112,6 +117,8 @@ export class CardBook extends React.Component {
   stopFilteringBy(filterName,filterObject) {
     let filters = this.state.filters;
     let i = 0;
+
+    console.log(filters);
 
     filters[filterName] = filters[filterName] || {};
     filters[filterName].filterArgs = filters[filterName].filterArgs || [];
@@ -163,6 +170,8 @@ export class CardBook extends React.Component {
   }
 
   advancedFilters() {
+    var j=0;
+
     return <div><h2>Advanced Filters<span className="show-hide-advanced-filter"><ShowHideButton target={".advanced-filters"} showText="+" hideText="-" startClosed="true"/></span></h2>
             <div className="row height-zero advanced-filters">
               {this.props.advancedFilters.map((renderFilterButtons) => {
@@ -206,10 +215,14 @@ export class CardBook extends React.Component {
                       i++;
                       return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={i-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
                     })}
+                    
                   </div>                  
+
+                  {this.advancedFilters()}
 
                   <h2>Saved Cards ({savedCardsLength()})<span className="show-hide-advanced-filter"><ShowHideButton target={".saved-cards"} showText="+" hideText="-" startClosed="true"/></span></h2>
                   <div className="height-zero saved-cards">
+                    {console.log(this.state.savedCards)}
                     {this.props.renderCards(this.state.savedCards, this.saveCard)}
                   </div>
                   
