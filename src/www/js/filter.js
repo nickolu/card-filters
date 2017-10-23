@@ -72,6 +72,67 @@ var cardFilter = {};
             return filter(test, data);
           },
 
+          maximum : function(criteria, data) {
+            var test = function(item) {
+              var numberToTest;
+
+              switch(item[criteria[0]]) {
+                case "1/8" : 
+                  numberToTest = 0.125;
+                  break;
+                case "1/4" : 
+                  numberToTest = 0.25;
+                  break;
+                case "1/2" : 
+                  numberToTest = 0.5;
+                  break;
+                default : 
+                  numberToTest = item[criteria[0]];
+              }
+
+              if (Number(numberToTest) <= Number(criteria[1])) {
+                console.log(`${numberToTest} is less than or equal to ${criteria[1]}`)  
+              } else {
+                console.log(`${numberToTest} is greater than ${criteria[1]}`)  
+              }
+
+              return Number(numberToTest) <= Number(criteria[1]);
+            }
+
+            return filter(test, data);
+          },
+
+          minimum : function(criteria, data) {
+
+            var test = function(item) {
+              var numberToTest;
+
+              switch(item[criteria[0]]) {
+                case "1/8" : 
+                  numberToTest = 0.125;
+                  break;
+                case "1/4" : 
+                  numberToTest = 0.25;
+                  break;
+                case "1/2" : 
+                  numberToTest = 0.5;
+                  break;
+                default : 
+                  numberToTest = item[criteria[0]];
+              }
+
+              if (Number(numberToTest) >= Number(criteria[1])) {
+                console.log(`${numberToTest} is greater than or equal to ${criteria[1]}`)  
+              } else {
+                console.log(`${numberToTest} is less than ${criteria[1]}`)  
+              }
+              
+              return Number(numberToTest) >= Number(criteria[1]);
+            }
+
+            return filter(test, data);
+          },
+
           search : function(criteria, data) {
             var inputText = criteria[1].toLowerCase();
             var searchDescription = criteria[0];
