@@ -165,15 +165,20 @@ export class CardBook extends React.Component {
 
   advancedFilters() {
     var j=0;
+    var advancedFilters = null;
 
-    return <div><h2>Advanced Filters<span className="show-hide-advanced-filter"><ShowHideButton target={".advanced-filters"} showText="+" hideText="-" startClosed="true"/></span></h2>
-            <div className="row height-zero advanced-filters">
-              {this.props.advancedFilters.map((renderFilterButtons) => {
-                j++;
-                return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
-              })}
-            </div>
-          </div>
+    if (this.props.advancedFilters && this.props.advancedFilters.length > 0) {
+      advancedFilters = <div><h2>Advanced Filters<span className="show-hide-advanced-filter"><ShowHideButton target={".advanced-filters"} showText="+" hideText="-" startClosed="true"/></span></h2>
+        <div className="row height-zero advanced-filters">
+          {this.props.advancedFilters.map((renderFilterButtons) => {
+            j++;
+            return <div className="col-xs-12 col-sm-6 filter-group filters-advanced" key={j-1}>{renderFilterButtons(this.startFilteringBy, this.stopFilteringBy)}</div>;
+          })}
+        </div>
+      </div>;
+    }
+
+    return advancedFilters
   }
 
 
